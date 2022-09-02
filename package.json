@@ -1,0 +1,18 @@
+{
+  "name": "MATRIX-Language",
+  "version": "1.0.0",
+  "main": "src/matrix/matrix.js",
+  "author": "FIUS Dev",
+  "bin": "src",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  },
+  "scripts": {
+    "start": "node src/matrix/matrix.js"
+  },
+  "pkg": {
+    "scripts": "src/*.js",
+    "outputPath": "dist",
+    "targets": [ "node14-linux", "node14-win" ]
+  }
+}
