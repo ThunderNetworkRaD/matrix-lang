@@ -152,121 +152,6 @@ class Variable {
     return this.environment.get(this.identifier);
   };
 }
-
-/*
-                 ::::{[{[ --> THE EVALUATING LOGIC <-- ]}]}::::
-        The logic behind the evaluator is to create a tree of operations.
-      It starts by iterating through the Whole raw expression (token list),
-                            from right to left,
-              trying to find the operators of lowest precedence 
-                    (the ones that will be executed last).
-              As soon as it finds an operator of type "+" or "-",
-                 it becomes the first expression in the tree.
-       The expressions can be of 4 types: Binary, Unary, Group or Literal.
-             The Evaluator will iterate through the raw Expression,
-                  Always trying break down bigger expressions
-             into smaller ones until it works with only Primaries.
-                             THE EXPRESSION TYPES
-          Binary Expressions :
-            --> Have a left and right sub-expression, along with an operator.
-            --> The expression's value is calculated by
-                joining the values of the left and right 
-                sub-expressions through the operator.
-            --> EXAMPLES:
-      
-          1.     "PLUS"                    2.        "MULTPLY"                                            
-                   /\                                    /\                            
-                  /  \                                  /  \                           
-                 5    6                               5+6  7-3                    
-                                                                                  
-           Calculated Value: 11                  Calculated Value: 44                                                                 
-                         
-            --> {{ RECURSION ALERT }}
-                Notice how in Example 2,
-                the sub-expressions are also of type "Binary Expression"   
-          Unary Expressions :
-            --> Have a sub-expression, along with a unary operator ("!" or "-").
-            --> The expression's value is calculated by
-                joining the value of the sub-expression with the operator.
-            --> EXAMPLES:
-      
-          1.     "PLUS"                    2.        "MINUS"                                            
-                    |                                   |                           
-                    5                                   9                     
-                                                                
-                                                                                  
-           Calculated Value: 5                  Calculated Value: -9                                                                 
-                          
-          Group Expressions :
-            --> Are the ones in between parenthesis.
-            --> The expression's value is calculated by parsing
-                the expression in between parenthesis.
-            --> Examples:
-          
-          1.    "(2 + 3)"                                                             
-                    |
-                    V                                                         
-                   2+3    
-                    |
-                    V
-                  "PLUS"                                           
-                    /\                                            
-                   /  \
-                  2    3
-                   
-           Calculated Value: 5                   
-                
-                     
-           
-          Primary Expressions :
-            --> Are the ones that represent a Literal (String, Int, Float, etc.).
-            --> The expression's value is the Literal it holds.
-            --> Examples:
-          
-          1.      "245"                                                             
-                    
-           Calculated Value: 245                              
-                            {[{[ --> EXAMPLE <--]}]}
-                                                                                                                                                                                  
-                    (3 + 5) - 8 * (4 - (8 / 2) - 7) + 4 * (9)                                                                                                                                                    
-                                                    |                                                                                                                              
-                                                  "PLUS"                                                                                                                                           
-                                                    /\                                                                                                                                         
-                                                   /  \                                                                                                                                        
-                     (3 + 5) - 8 * (4 - (8 / 2) - 7)   4 * (9)                                                                                                                                                                 
-                             |                           |                                    
-                          "MINUS"                      "MULT"                                                                                                                                  
-                            /\                           /\                                                                                                                                                                                       
-                           /  \                         4   (9)                                                                                                                                                       
-                          /    \                             |                                                                    
-                  (3 + 5)      8 * (4 - (8 / 2) - 7)         9                                                                                       
-                /                |                                                                                                          
-          GROUP(3+5)         "MULTIPLY"                                                                                                      
-              |                  /\                                                                                         
-            3 + 5               /  \                                                                     
-              |                8    (4 - (8 / 2) - 7)                                                         
-            "PLUS"                          |                             
-              /\                     4 - (8 / 2) - 7                                                     
-             /  \                                |                                         
-            3    5                            "MINUS"                                 
-                                                 /\                             
-                                                /  \                              
-                                    4 - (8 / 2)      7                         
-                                      |                                        
-                                   "MINUS"                                          
-                                      /\                                                                        
-                                     /  \                                                                                                        
-                                    4    (8 / 2)                                                                    
-                                            |                                                                
-                                          8 / 2                                                                  
-                                            |                                                                
-                                         "DIVIDE"                                                                   
-                                            /\                                                                
-                                           /  \        
-                                          8    2
-                                           
-*/
-
 class Evaluator {
   constructor(environment) {
     this.environment = environment;
@@ -446,7 +331,6 @@ class Evaluator {
   }
 
   handleAssignment() {
-    // console.log('isAssignment')
     let assigned = this.rawExpression.slice(0, this.index);
     let expression = this.rawExpression.slice(this.index+1);
 
@@ -478,7 +362,6 @@ class Evaluator {
   };
 
   handleBinary() {
-    // console.log('isBinary')
     let leftNode = this.rawExpression.slice(0, this.index);
     let rightNode = this.rawExpression.slice(this.index+1);
 
@@ -500,7 +383,6 @@ class Evaluator {
   }
 
   handleUnary() {
-    // console.log('isUnary')
     let expr = this.rawExpression.slice(this.index+1);
 
     if (!expr.length) {
@@ -565,7 +447,6 @@ class Evaluator {
   };
 
   handleOpenParen() {
-    // console.log('isGroup')
     let group = []
     while (this.isInGroup()) {
       group.push(this.currentToken);
@@ -582,13 +463,11 @@ class Evaluator {
   };
 
   handlePrimary() {
-    // console.log('isPrimary')
     let node = new Literal(this.currentToken);
     return node;
   };
 
   handleVariable() {
-    // console.log('isVariable')
     let node = new Variable(
       this.currentToken, 
       this.environment
@@ -613,23 +492,6 @@ class Evaluator {
   };
 
   evaluate() {
-    // console.log('expression to parse');
-    // console.log(this.rawExpression);
-
-    /*
-      Parsing the expressions with lowest precedence (EQUALITY)
-      We iterate through the rawExpression from right to left due to the association rule of these operators.
-      The order of precedence is as follows
-      --> EQUALITY
-      --> COMPARISSON
-      --> ADDITION - SUBTRACTION
-      --> MULTIPLICATION - DIVISION
-      --> UNARY
-      --> GROUP
-      --> PRIMARY
-    */
-
-
     while (this.currentToken) {
       if (this.isForbidden(this.currentToken)) {
         this.handleForbidden();
@@ -765,18 +627,3 @@ class Evaluator {
 module.exports = {
   Evaluator,
 };
-
-
-
-// const { Environment } = require('./Environment');
-// const { Lexer } = require('./Lexer');
-
-// console.time('parsing')
-// const env = new Environment();
-// const lexer = new Lexer("1");
-// const parser = new Parser(env);
-// parser.load(lexer.tokens);
-// result = parser.parse();
-// console.log(result);
-
-// console.timeEnd('parsing')

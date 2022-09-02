@@ -29,6 +29,4 @@ class matrix {
   };
 };
 
-//console.time('interpreting');
 new matrix();
-//console.timeEnd('interpreting');

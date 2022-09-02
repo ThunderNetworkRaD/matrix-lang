@@ -489,7 +489,6 @@ class Parser {
       statement,
       new Environment(this.environment),
     );
-    // console.log(stmt);
     return stmt;
   };
 
@@ -498,7 +497,6 @@ class Parser {
       statement,
       this.evaluator
     );
-    // console.log(stmt);
     return stmt;
   };
 
@@ -508,18 +506,15 @@ class Parser {
       this.evaluator,
       this.environment,
     );
-    // console.log(stmt);
     return stmt;
   };
 
   handleIf(statement) {
-    // console.log(statement);
     let stmt = new IfStmt(
       statement,
       this.evaluator,
       this.environment
     );
-    // console.log(stmt);
     return stmt;
   };
 
@@ -528,7 +523,6 @@ class Parser {
       statement,
       this.evaluator,
     );
-    // console.log(stmt);
     return stmt;
   };
 
@@ -538,7 +532,6 @@ class Parser {
       this.evaluator,
       this.environment
     );
-    // console.log(stmt);
     return stmt;
   }
 
@@ -548,12 +541,10 @@ class Parser {
       this.evaluator,
       this.environment
     );
-    // console.log(stmt);
     return stmt;
   }
 
   handleStatement(statement) {
-    // console.log(statement);
     if (statement[0].type == 'LBRACE') {
       return this.handleBlock(statement)
     };
