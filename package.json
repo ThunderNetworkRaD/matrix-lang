@@ -1,6 +1,6 @@
 {
   "name": "MATRIX-Language",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "src/matrix/matrix.js",
   "author": "FIUS Dev",
   "bin": "src",
