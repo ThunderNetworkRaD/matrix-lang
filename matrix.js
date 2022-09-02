@@ -9,19 +9,13 @@ class matrix {
 
   fetchInput() {
     let file = process.argv[2];
-    if (!file)
-    {
+    if (!file) {
       console.log('USAGE -- [ node matrix.js <filename> ]');
-    }
-    else
-    {
-      try 
-      {
+    } else {
+      try {
         const data = fs.readFileSync(file, 'utf8');
         return data  
-      } 
-      catch(e) 
-      {
+      } catch(e) {
         console.log('USAGE -- [ node matrix.js <filename> ]');
         console.log('Error:', e.stack);
       };

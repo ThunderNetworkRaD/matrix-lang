@@ -15,34 +15,24 @@ class Environment {
   };
 
   assign(identifier, value) {
-    if (!Object.keys(this.values).includes(identifier))
-    {
-      if (this.enclosing) 
-      {
+    if (!Object.keys(this.values).includes(identifier)) {
+      if (this.enclosing) {
         return this.enclosing.assign(identifier, value);
-      } 
-      else 
-      {
+      } else {
         this.errorHandler.throw(
           `UNDEFINED VARIABLE ${identifier}`
         );
       }
-    } 
-    else 
-    {
+    } else {
       this.values[identifier] = value;
     };
   };
 
   get(identifier) {
-    if (Object.keys(this.values).includes(identifier)) 
-    {
+    if (Object.keys(this.values).includes(identifier)) {
       return this.values[identifier];
-    }
-    else 
-    {
-      if (this.enclosing) 
-      {
+    } else {
+      if (this.enclosing) {
         return this.enclosing.get(identifier);
       };
       this.errorHandler.throw(
