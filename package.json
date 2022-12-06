@@ -7,6 +7,6 @@
     "start": "node src/matrix/matrix.js"
   },
   "bin": {
-    "mle": "node ./matrix.js"
+    "matrix exec": "node ./matrix.js"
   }
 }
