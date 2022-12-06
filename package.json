@@ -1,18 +1,15 @@
 {
-  "name": "MATRIX-Language",
+  "name": "matrix-language",
   "version": "0.0.1",
-  "main": "src/matrix/matrix.js",
-  "author": "FIUS Dev",
-  "bin": "src",
-  "dependencies": {
-    "fs": "^0.0.1-security"
-  },
+  "main": "./matrix.js",
+  "author": "FIUS Development | Killer Boss Original",
   "scripts": {
     "start": "node src/matrix/matrix.js"
   },
+  "bin": {
+    "mle": "node matrix.js"
+  },
   "pkg": {
-    "scripts": "src/*.js",
-    "outputPath": "dist",
     "targets": [ "node14-linux", "node14-win" ]
   }
 }

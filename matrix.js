@@ -10,13 +10,13 @@ class matrix {
   fetchInput() {
     let file = process.argv[2];
     if (!file) {
-      console.log('USAGE -- [ node matrix.js <filename> ]');
+      console.log('USAGE -- [ mle <filename> ]');
     } else {
       try {
         const data = fs.readFileSync(file, 'utf8');
         return data  
       } catch(e) {
-        console.log('USAGE -- [ node matrix.js <filename> ]');
+        console.log('USAGE -- [ mle <filename> ]');
         console.log('Error:', e.stack);
       };
     };
