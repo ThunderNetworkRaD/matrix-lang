@@ -1,6 +1,6 @@
 {
   "name": "matrix-language",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./matrix.js",
   "author": "FIUS Development | Killer Boss Original",
   "scripts": {
