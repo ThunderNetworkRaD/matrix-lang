@@ -1,8 +1,8 @@
 {
   "name": "matrix-language",
-  "version": "0.0.3",
+  "version": "2023.03.14",
   "main": "./matrix.js",
-  "author": "FIUS Development | Killer Boss Original",
+  "author": "Thunder Network RaD (Formerly FIUS Development) | Killer Boss Original",
   "scripts": {
     "start": "node src/matrix/matrix.js"
   },
