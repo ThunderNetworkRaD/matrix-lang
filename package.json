@@ -1,12 +1,22 @@
 {
   "name": "matrix-language",
-  "version": "2023.03.14",
+  "version": "2023.03.14-1",
   "main": "./matrix.js",
+  "type": "module",
   "author": "Thunder Network RaD (Formerly FIUS Development) | Killer Boss Original",
   "scripts": {
-    "start": "node src/matrix/matrix.js"
+    "build": "tsc",
+    "local:test": "yarn rm -g matrix-language && npm run build && npm i -g ."
+  },
+  "dependencies": {
+    "mit.db": "^2023.2.23-1",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.3"
   },
   "bin": {
-    "matrix exec": "node ./matrix.js"
+    "mtrx": "./build/index.js",
+    "matrix": "./build/index.js"
   }
 }
